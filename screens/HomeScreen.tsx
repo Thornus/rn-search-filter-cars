@@ -1,16 +1,46 @@
+import { useState, useEffect, SetStateAction } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
-import { Button, Searchbar } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import GradientWrapper from '../components/GradientWrapper';
+import SearchbarWithFilters from '../components/SearchbarWithFilters';
 
 const HomeScreen: React.FC = ({ navigation }) =>  {
+  const [searchText, setSearchText] = useState('');
+  const [cars, setCars] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    getAllCars();
+  }, []);
+
+  const getAllCars = async () => {
+    try {
+      const response = await fetch('https://myfakeapi.com/api/cars/');
+      const json = await response.json();
+
+      if(json.cars) {
+        setCars(json.cars);
+      } else {
+        console.warn('Warning: API did not return cars.')
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const onSearch = (query: SetStateAction<string>) => {
+    setSearchText(query);
+
+    const filteredCars = cars.filter(obj => obj.car.startsWith(query))
+    setSearchResults(filteredCars);
+  };
+
   return (
     <GradientWrapper>
-      <Searchbar
-        placeholder="Search"
-        onChangeText={() => {}}
-        value={''}
-        style={styles.searchBar}
-        clearIcon='car-key'
+      <SearchbarWithFilters
+      changeTextHandler={onSearch}
+      searchText={searchText}
+      navigateTo={(screenName: string) => navigation.navigate(screenName)}
       />
 
       <View style={styles.lastRentedView}>
@@ -53,10 +83,6 @@ const HomeScreen: React.FC = ({ navigation }) =>  {
 const styles = StyleSheet.create({
   gradientWrapper: {
     flex: 1
-  },
-  searchBar: {
-    marginTop: '10%',
-    marginHorizontal: '10%'
   },
   lastRentedView: {
     flex: 1,
