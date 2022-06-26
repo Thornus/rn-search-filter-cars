@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, View, Text, Button } from 'react-native';
 
+import HomeScreen from '../screens/HomeScreen';
 import FiltersScreen from '../screens/FiltersScreen';
 import { RootStackParamList } from '../types';
 
@@ -26,14 +27,3 @@ function RootNavigator() {
   );
 }
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Filters"
-        onPress={() => navigation.navigate('Filters')}
-      />
-    </View>
-  );
-}
