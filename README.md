@@ -4,7 +4,7 @@ This is a React Native app written in TypeScript that shows the last car you ren
 
 The app uses [React Native Paper](https://github.com/callstack/react-native-paper) as a UI library.
 
-![Home screen screenshot](homescreen.png =250x "Home screen screenshot")
+![Home screen screenshot](homescreen.png "Home screen screenshot")
 
 ## How to run the app
 `npm install`
