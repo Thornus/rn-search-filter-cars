@@ -1,7 +1,7 @@
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName } from 'react-native';
+import { ColorSchemeName, Button } from 'react-native';
 
 import HomeScreen from '../screens/HomeScreen';
 import FiltersScreen from '../screens/FiltersScreen';
@@ -29,8 +29,21 @@ function RootNavigator() {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" initialParams={HomeInitialParams} component={HomeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Filters" component={FiltersScreen} options={{ title: 'Filters' }} />
+      <Stack.Screen
+        name="Home"
+        initialParams={HomeInitialParams}
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Filters"
+        component={FiltersScreen}
+        options={{
+          title: 'Filters',
+          headerLeft: () => <Button title=''></Button>
+        }}
+      />
     </Stack.Navigator>
   );
 }
