@@ -14,7 +14,7 @@ The app uses [React Native Paper](https://github.com/callstack/react-native-pape
 Follow the instructions in the terminal to run the app on the web, iOS or Android.
 
 ## Try the app live
-You can try it here: 
+You can try it here: https://snack.expo.dev/@thornus/cca815
 
 ## Assumptions
 
