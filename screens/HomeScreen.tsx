@@ -1,5 +1,5 @@
+import React from 'react';
 import { useState, useEffect, SetStateAction } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
 import GradientWrapper from '../components/GradientWrapper';
 import LastRentedView from '../components/LastRentedView';
 import ResultsFlatList from '../components/ResultsFlatList';

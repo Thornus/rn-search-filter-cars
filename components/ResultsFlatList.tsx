@@ -1,3 +1,4 @@
+import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Card, Title, Paragraph, Subheading, ActivityIndicator } from 'react-native-paper';
 import DefaultCoverImage from '../assets/images/car-placeholder.png';

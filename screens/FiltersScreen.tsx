@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, TextInput, Subheading } from 'react-native-paper';
 import { Text, View, ScrollView , StyleSheet} from 'react-native';
 import {Slider} from '@miblanchard/react-native-slider';
