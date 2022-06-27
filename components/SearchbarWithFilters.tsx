@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     marginHorizontal: '10%',
+    paddingRight: '10%'
   },
   filtersIconButton: {
     position: 'absolute',
