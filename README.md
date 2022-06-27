@@ -1,6 +1,6 @@
 # Search and filter cars (React Native) 🚗
 ## Introduction
-This is a React Native app written in TypeScript that shows the last car you rented and allows you to search for a car by brand name, model, manufacturing year, color and price range.
+This is a React Native app written in TypeScript that shows the last car you rented and allows you to search for a car by brand name, model, year, color and price range.
 
 The app uses [React Native Paper](https://github.com/callstack/react-native-paper) as a UI library.
 
