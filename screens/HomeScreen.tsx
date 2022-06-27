@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext, SetStateAction } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import GradientWrapper from '../components/GradientWrapper';
 import LastRentedView from '../components/LastRentedView';
 import ResultsFlatList from '../components/ResultsFlatList';
@@ -10,11 +11,15 @@ const HomeScreen: React.FC = ({ route, navigation }) =>  {
   const [searchResults, setSearchResults] = useState([]);
   const [shouldShowResults, setShouldShowResults] = useState(false);
 
-  const { model, year, color, priceMin, priceMax } = route.params;
-
   useEffect(() => {
     getAllCars();
   }, []);
+
+  useEffect(() => {
+    if(shouldShowResults) {
+      onSearch(searchText);
+    }
+  }, [route]);
 
   const getAllCars = async () => {
     try {
@@ -40,7 +45,26 @@ const HomeScreen: React.FC = ({ route, navigation }) =>  {
       setShouldShowResults(true);
     }
 
-    const filteredCars = cars.filter(obj => obj.car.startsWith(query))
+    const { priceMin, priceMax, model, year, color } = route.params;
+
+    let filteredCars = cars.filter(obj => obj.car.startsWith(query));
+    filteredCars = filteredCars.filter(obj => {
+      const carPrice = Number(obj.price.replace(/[^0-9.-]+/g,""));
+      return carPrice > priceMin && carPrice < priceMax;
+    });
+    
+    if(model) {
+      filteredCars = filteredCars.filter(obj => obj.car_model.toLowerCase().startsWith(model.toLowerCase()))
+    }
+
+    if(year) {
+      filteredCars = filteredCars.filter(obj => obj.car_model_year == year)
+    }
+
+    if(color) {
+      filteredCars = filteredCars.filter(obj => obj.car_color.toLowerCase() === color.toLowerCase())
+    }
+    
     setSearchResults(filteredCars);
   };
 
@@ -49,7 +73,7 @@ const HomeScreen: React.FC = ({ route, navigation }) =>  {
       <SearchbarWithFilters
         changeTextHandler={onSearch}
         searchText={searchText}
-        navigateTo={(screenName: string) => navigation.navigate(screenName)}
+        navigateTo={(screenName: string) => navigation.navigate(screenName, route.params)}
       />
 
       {!shouldShowResults && <LastRentedView/>}

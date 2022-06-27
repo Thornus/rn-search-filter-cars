@@ -1,40 +1,82 @@
-import { Button, TextInput } from 'react-native-paper';
+import { Button, TextInput, Subheading } from 'react-native-paper';
 import { Text, View, ScrollView , StyleSheet} from 'react-native';
 import {Slider} from '@miblanchard/react-native-slider';
-import { RootStackScreenProps } from '../types';
+import { RootStackParamList, RootStackScreenProps } from '../types';
+import { useState } from 'react';
 
-export default function Filters({ navigation }: RootStackScreenProps<'Filters'>) {
+export default function Filters({ route, navigation }: RootStackScreenProps<'Filters'>) {
+  const [model, setModel] = useState(route.params?.model);
+  const [year, setYear] = useState(route.params?.year);
+  const [color, setColor] = useState(route.params?.color);
+  const [priceMin, setPriceMin] = useState(route.params?.priceMin);
+  const [priceMax, setPriceMax] = useState(route.params?.priceMax);
+
+  const onSearch = () => {
+    const params: RootStackParamList = {
+      model,
+      year,
+      color,
+      priceMin,
+      priceMax,
+      shouldShowResultsParam: true
+    }
+
+    navigation.navigate('Home', params);
+  }
+
+  const resetValues = () => {
+    setModel('');
+    setYear(null);
+    setColor('');
+    setPriceMin(0);
+    setPriceMax(9999);
+  };
+
   return (
     <View style={styles.filtersView}>
       <ScrollView style={styles.scrollView}>
         <TextInput
           label="Model"
+          value={model}
+          onChangeText={(val) => setModel(val)}
           style={styles.input}
         ></TextInput>
 
         <TextInput
           label="Year"
+          value={year}
+          onChangeText={(val) => setYear(val)}
           style={styles.input}
         ></TextInput>
 
         <TextInput
           label="Color"
+          value={color}
+          onChangeText={(val) => setColor(val)}
           style={styles.input}
         ></TextInput>
 
-        <Text>Price range</Text>
+        <Subheading style={{marginTop: '10%'}}>Price range</Subheading>
         <Slider
-          value={3}
+          value={[priceMin, priceMax]}
+          animateTransitions
+          maximumTrackTintColor="#d3d3d3"
+          maximumValue={9999}
+          minimumTrackTintColor="rgba(144, 95, 250, 1)"
           minimumValue={0}
-          maximumValue={1000}
           step={10}
-          trackClickable={true}
+          thumbTintColor="rgba(144, 95, 250, 1)"
+          onValueChange={(valArr: number | number[]) => {
+            setPriceMin(valArr[0]);
+            setPriceMax(valArr[1]);
+          }}
         />
+        <Text style={{fontSize: 20, alignSelf: 'center'}}>${priceMin} - ${priceMax}</Text>
 
         <View style={styles.rowView}>
           <Button
             mode="contained"
-            onPress={() => console.log("reset pressed")}
+            onPress={resetValues}
             style={styles.ctaButton}
             contentStyle={styles.ctaButtonContent}
             labelStyle={styles.ctaButtonText}
@@ -44,12 +86,12 @@ export default function Filters({ navigation }: RootStackScreenProps<'Filters'>)
 
           <Button
             mode="contained"
-            onPress={() => console.log('search pressed')}
+            onPress={onSearch}
             style={styles.ctaButton}
             contentStyle={styles.ctaButtonContent}
             labelStyle={styles.ctaButtonText}
           >
-            SEARCH
+            SET FILTERS
           </Button>
         </View>
       </ScrollView>
