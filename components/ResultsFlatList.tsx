@@ -11,7 +11,7 @@ const ResultsFlatList: React.FC<Props> = ({ results }) => {
     return (
       <View style={styles.notFoundView}>
         <Text style={styles.notFoundText}>We couldn't find any cars!</Text>
-        <Text style={styles.notFoundText}>Try another search.</Text>
+        <Text style={styles.notFoundText}>Try another search or tune the filters.</Text>
       </View>
     );
   }
@@ -36,6 +36,7 @@ const ResultsFlatList: React.FC<Props> = ({ results }) => {
                     numberOfLines={1}
                     adjustsFontSizeToFit>{item.car + ' ' + item.car_model}</Text>
                   <Text style={styles.subtitle}>{item.car_model_year}</Text>
+                  <Text style={styles.subtitle}>{item.car_color}</Text>
                 </View>
 
                 <View style={{flexDirection: 'row'}}>
@@ -49,9 +50,7 @@ const ResultsFlatList: React.FC<Props> = ({ results }) => {
         );
       }}
       keyExtractor={(item, index) => index.toString()}
-      // ItemSeparatorComponent={() => <View style={styles.separator}/>}
       style={styles.flatList}
-      // contentContainerStyle={styles.flatListContentContainer}
     />
   );
 };
