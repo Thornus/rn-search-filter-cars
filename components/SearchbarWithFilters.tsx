@@ -15,7 +15,6 @@ const SearchbarWithFilters: React.FC<Props> = ({changeTextHandler, navigateTo, s
         placeholder="Search"
         onChangeText={changeTextHandler}
         value={searchText}
-        clearIcon=''
         style={styles.searchBar}
       >
       </Searchbar>
