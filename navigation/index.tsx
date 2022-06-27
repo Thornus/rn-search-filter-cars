@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
@@ -42,7 +41,7 @@ function RootNavigator() {
         component={FiltersScreen}
         options={{
           title: 'Filters',
-          headerLeft: () => <Button title=''></Button>
+          headerLeft: () => <></>
         }}
       />
     </Stack.Navigator>
