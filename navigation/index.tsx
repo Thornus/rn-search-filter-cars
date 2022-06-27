@@ -19,9 +19,17 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const HomeInitialParams = {
+    model: '',
+    year: null,
+    color: '',
+    priceMin: 0,
+    priceMax: 9999
+  };
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={HomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Home" initialParams={HomeInitialParams} component={HomeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Filters" component={FiltersScreen} options={{ title: 'Filters' }} />
     </Stack.Navigator>
   );

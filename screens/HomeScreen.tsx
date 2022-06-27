@@ -1,14 +1,16 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect, useContext, SetStateAction } from 'react';
 import GradientWrapper from '../components/GradientWrapper';
 import LastRentedView from '../components/LastRentedView';
 import ResultsFlatList from '../components/ResultsFlatList';
 import SearchbarWithFilters from '../components/SearchbarWithFilters';
 
-const HomeScreen: React.FC = ({ navigation }) =>  {
-  const [searchText, setSearchText] = useState('');
+const HomeScreen: React.FC = ({ route, navigation }) =>  {
   const [cars, setCars] = useState([]);
+  const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [shouldShowResults, setShouldShowResults] = useState(false);
+
+  const { model, year, color, priceMin, priceMax } = route.params;
 
   useEffect(() => {
     getAllCars();
